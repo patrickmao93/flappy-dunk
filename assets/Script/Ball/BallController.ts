@@ -25,6 +25,23 @@ export default class BallController extends cc.Component {
         physicsManager.gravity = cc.v2(0, this.gravity);
 
         this.rigidbody = this.getComponent(cc.RigidBody);
+        this.rigidbody.enabledContactListener = true;
+    }
+
+    update(dt: number) {
+        if (this.rigidbody.linearVelocity.x > this.speed) {
+            this.rigidbody.linearVelocity = cc.v2(this.speed, this.rigidbody.linearVelocity.y);
+            return;
+        } else if (this.rigidbody.linearVelocity.x < 0) {
+            this.rigidbody.linearVelocity = cc.v2(
+                this.rigidbody.linearVelocity.x / 10,
+                this.rigidbody.linearVelocity.y
+            );
+        }
+        this.rigidbody.linearVelocity = cc.v2(
+            this.rigidbody.linearVelocity.x + this.acceleration * dt,
+            this.rigidbody.linearVelocity.y
+        );
     }
 
     init(playerSpawnPosition: cc.Vec2) {
@@ -34,18 +51,5 @@ export default class BallController extends cc.Component {
 
     hop() {
         this.rigidbody.linearVelocity = cc.v2(this.rigidbody.linearVelocity.x, this.hopSpeed);
-    }
-
-    update(dt: number) {
-        if (this.rigidbody.linearVelocity.x > this.speed) {
-            this.rigidbody.linearVelocity = cc.v2(this.speed, this.rigidbody.linearVelocity.y);
-            return;
-        } else if (this.rigidbody.linearVelocity.x < 0) {
-            // this.rigidbody.linearVelocity = cc.v2(0, this.rigidbody.linearVelocity.y);
-        }
-        this.rigidbody.linearVelocity = cc.v2(
-            this.rigidbody.linearVelocity.x + this.acceleration * dt,
-            this.rigidbody.linearVelocity.y
-        );
     }
 }

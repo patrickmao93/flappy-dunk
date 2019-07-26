@@ -369,6 +369,7 @@
     },
     "_enabled": true,
     "startingScale": 1.6,
+    "minScale": 1.15,
     "_id": ""
   },
   {
