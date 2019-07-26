@@ -88,7 +88,7 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "b04c7f10-5bc4-45ac-91f7-da6d59169b6d"
+      "__uuid__": "c6600e22-3826-4d67-af81-047821c10909"
     },
     "_type": 0,
     "_sizeMode": 0,
@@ -143,7 +143,7 @@
     "tag": 0,
     "_density": 10,
     "_sensor": false,
-    "_friction": 0.4,
+    "_friction": 0.1,
     "_restitution": 0.7,
     "body": null,
     "_offset": {
@@ -172,6 +172,9 @@
       "x": -200,
       "y": 0
     },
+    "acceleration": 1000,
+    "defaultSpeed": 100,
+    "maxSpeed": 200,
     "_id": ""
   },
   {

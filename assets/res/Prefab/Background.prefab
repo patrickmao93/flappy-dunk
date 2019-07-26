@@ -102,13 +102,16 @@
     "_id": ""
   },
   {
-    "__type__": "71539VlRTNNBaJ+7j91Hkd2",
+    "__type__": "abd88MriZhM8Yl6UhEmEk7o",
     "_name": "",
     "_objFlags": 0,
     "node": {
       "__id__": 1
     },
     "_enabled": true,
+    "HoopPrefab": {
+      "__uuid__": "cbcda6c4-5226-4ae6-b010-68b809244a14"
+    },
     "_id": ""
   },
   {

@@ -1,5 +1,5 @@
 import BallController from "../Ball/BallController";
-import ScrollController from "./ScrollController";
+import CameraFollowController from "./CameraFollowController";
 
 const { ccclass, property } = cc._decorator;
 
@@ -11,15 +11,14 @@ export default class Game extends cc.Component {
     @property(cc.Vec2)
     playerSpawnPosition: cc.Vec2 = cc.v2(-200, 0);
 
-    private scrollCtrl: ScrollController;
+    private cameraCtrl: CameraFollowController;
 
     private ball: cc.Node;
     private ballCtrl: BallController;
 
     onLoad() {
         this.initPlayer();
-        this.initScrolling();
-        this.registerInputEvents();
+        this.initCameraFollow();
     }
 
     initPlayer() {
@@ -29,15 +28,8 @@ export default class Game extends cc.Component {
         this.ballCtrl.init(this.playerSpawnPosition);
     }
 
-    initScrolling() {
-        this.scrollCtrl = this.getComponent("ScrollController");
-        this.scrollCtrl.init();
-        this.scrollCtrl.startScrolling();
-    }
-
-    registerInputEvents() {
-        this.node.on(cc.Node.EventType.TOUCH_START, () => {
-            this.ballCtrl.hop();
-        });
+    initCameraFollow() {
+        this.cameraCtrl = this.getComponent("CameraFollowController");
+        this.cameraCtrl.init(this.ball);
     }
 }
