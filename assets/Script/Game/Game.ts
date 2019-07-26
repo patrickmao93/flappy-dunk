@@ -1,5 +1,6 @@
 import BallController from "../Ball/BallController";
 import CameraFollowController from "./CameraFollowController";
+import HoopGenerator from "./HoopGenerator";
 
 const { ccclass, property } = cc._decorator;
 
@@ -16,9 +17,12 @@ export default class Game extends cc.Component {
     private ball: cc.Node;
     private ballCtrl: BallController;
 
+    private hoopGenerator: HoopGenerator;
+
     onLoad() {
         this.initPlayer();
         this.initCameraFollow();
+        this.initHoopGenerator();
     }
 
     initPlayer() {
@@ -31,5 +35,10 @@ export default class Game extends cc.Component {
     initCameraFollow() {
         this.cameraCtrl = this.getComponent("CameraFollowController");
         this.cameraCtrl.init(this.ball);
+    }
+
+    initHoopGenerator() {
+        this.hoopGenerator = this.getComponent(HoopGenerator);
+        this.hoopGenerator.init(this.ball);
     }
 }
