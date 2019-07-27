@@ -53,8 +53,8 @@ export default class Game extends cc.Component {
             console.log("swooshed");
         });
         // ball missed hoop
-        cc.director.on("missed", () => {
-            console.log("missed");
+        cc.director.on("player_died", () => {
+            console.log("player_died");
         });
     }
 }

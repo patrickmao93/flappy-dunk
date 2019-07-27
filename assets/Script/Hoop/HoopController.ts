@@ -65,7 +65,7 @@ export default class HoopController extends cc.Component {
             this.scored = true;
         } else if (self.tag === 0) {
             if (!this.scored) {
-                cc.director.emit("missed");
+                cc.director.emit("player_died");
             }
         }
     }
