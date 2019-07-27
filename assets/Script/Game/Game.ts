@@ -23,6 +23,7 @@ export default class Game extends cc.Component {
         this.initPlayer();
         this.initCameraFollow();
         this.initHoopGenerator();
+        this.initEvents();
     }
 
     initPlayer() {
@@ -40,5 +41,20 @@ export default class Game extends cc.Component {
     initHoopGenerator() {
         this.hoopGenerator = this.getComponent(HoopGenerator);
         this.hoopGenerator.init(this.ball);
+    }
+
+    initEvents() {
+        // ball hit hoop and scored
+        cc.director.on("hit", () => {
+            console.log("hit");
+        });
+        // ball swooshed hoop
+        cc.director.on("swooshed", () => {
+            console.log("swooshed");
+        });
+        // ball missed hoop
+        cc.director.on("missed", () => {
+            console.log("missed");
+        });
     }
 }

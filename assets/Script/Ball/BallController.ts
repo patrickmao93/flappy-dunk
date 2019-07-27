@@ -12,20 +12,25 @@ export default class BallController extends cc.Component {
     defaultPosition: cc.Vec2 = cc.v2(-200, 0);
 
     @property
-    acceleration: number = 1000;
+    defaultAccel: number = 1000;
 
     @property
     speed: number = 300;
 
     private rigidbody: cc.RigidBody;
+    private accel: number;
 
     onLoad() {
+        cc.director.getCollisionManager().enabled = true;
+
         const physicsManager = cc.director.getPhysicsManager();
         physicsManager.enabled = true;
         physicsManager.gravity = cc.v2(0, this.gravity);
 
         this.rigidbody = this.getComponent(cc.RigidBody);
         this.rigidbody.enabledContactListener = true;
+
+        this.accel = this.defaultAccel;
     }
 
     update(dt: number) {
@@ -39,7 +44,7 @@ export default class BallController extends cc.Component {
             );
         }
         this.rigidbody.linearVelocity = cc.v2(
-            this.rigidbody.linearVelocity.x + this.acceleration * dt,
+            this.rigidbody.linearVelocity.x + this.accel * dt,
             this.rigidbody.linearVelocity.y
         );
     }
@@ -51,5 +56,13 @@ export default class BallController extends cc.Component {
 
     hop() {
         this.rigidbody.linearVelocity = cc.v2(this.rigidbody.linearVelocity.x, this.hopSpeed);
+    }
+
+    onBeginContact() {
+        this.accel = 0;
+    }
+
+    onEndContact() {
+        this.accel = this.defaultAccel;
     }
 }
