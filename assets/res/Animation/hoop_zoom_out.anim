@@ -9,24 +9,6 @@
   "wrapMode": 1,
   "curveData": {
     "props": {
-      "scale": [
-        {
-          "frame": 0,
-          "value": {
-            "__type__": "cc.Vec2",
-            "x": 1.57,
-            "y": 1.56
-          }
-        },
-        {
-          "frame": 0.4166666666666667,
-          "value": {
-            "__type__": "cc.Vec2",
-            "x": 2.21,
-            "y": 2.21
-          }
-        }
-      ],
       "opacity": [
         {
           "frame": 0,

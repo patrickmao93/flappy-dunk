@@ -2,6 +2,7 @@ import BallController from "../Ball/BallController";
 import CameraFollowController from "./CameraFollowController";
 import HoopGenerator from "./HoopGenerator";
 import GameModel from "./GameModel";
+import AudioController from "../Audio/AudioController";
 
 const { ccclass, property } = cc._decorator;
 
@@ -24,9 +25,12 @@ export default class Game extends cc.Component {
     private ballCtrl: BallController;
     private hoopGenerator: HoopGenerator;
     private game: GameModel;
+    private audioCtrl: AudioController;
 
     onLoad() {
         this.game = new GameModel();
+        this.audioCtrl = this.getComponent(AudioController);
+
         this.initPlayer();
         this.initCameraFollow();
         this.initHoopGenerator();
@@ -55,16 +59,19 @@ export default class Game extends cc.Component {
         // init input events
         this.surface.on(cc.Node.EventType.TOUCH_START, () => {
             this.ballCtrl.hop();
+            this.audioCtrl.playHop();
         });
 
         // ball hit hoop and scored
         cc.director.on("hit", () => {
             this.game.increaseScore("hit");
+            // this.audioCtrl.playHit();
             this.score.getComponent(cc.Label).string = this.game.getScore().toString();
         });
-        // ball swooshed hoop
-        cc.director.on("swooshed", () => {
-            this.game.increaseScore("swooshed");
+        // ball swished hoop
+        cc.director.on("swish", () => {
+            this.game.increaseScore("swish");
+            this.audioCtrl.playSwish();
             this.score.getComponent(cc.Label).string = this.game.getScore().toString();
         });
         // ball missed hoop

@@ -11,10 +11,10 @@ export default class GameModel {
         this.comboCount = 1;
     }
 
-    increaseScore(scoreType: "hit" | "swooshed") {
+    increaseScore(scoreType: "hit" | "swish") {
         if (scoreType === "hit") {
             this.resetCombo();
-        } else if (scoreType === "swooshed") {
+        } else if (scoreType === "swish") {
             this.combo();
         }
         this.score += this.comboCount;

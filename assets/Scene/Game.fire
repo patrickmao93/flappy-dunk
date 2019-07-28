@@ -97,6 +97,9 @@
       },
       {
         "__id__": 31
+      },
+      {
+        "__id__": 32
       }
     ],
     "_prefab": null,
@@ -831,7 +834,7 @@
     "_density": 1,
     "_sensor": false,
     "_friction": 0.1,
-    "_restitution": 0,
+    "_restitution": 0.7,
     "body": null,
     "_offset": {
       "__type__": "cc.Vec2",
@@ -1077,5 +1080,21 @@
     "distanceBetweenHoops": 700,
     "difficultyFactor": 100000,
     "_id": "2b1dPdJBpJ1a4EUgOzU4aD"
+  },
+  {
+    "__type__": "3d6f6s5EZdAxYVSoOnHLbXE",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 2
+    },
+    "_enabled": true,
+    "hop": {
+      "__uuid__": "bfca3915-7602-465e-9a7f-25ecf3763540"
+    },
+    "swish": {
+      "__uuid__": "2f71f5aa-0ac1-4297-9e17-1712a43e3ace"
+    },
+    "_id": "622ufEqgJK55TuDdFcb84K"
   }
 ]

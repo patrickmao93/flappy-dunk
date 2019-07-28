@@ -7,7 +7,7 @@ type HoopState = "contacted" | "missed";
 @ccclass
 export default class HoopController extends cc.Component {
     @property(cc.Prefab)
-    SwooshEffectPrefab: cc.Prefab;
+    swishEffectPrefab: cc.Prefab;
 
     private hoop: HoopModel = null;
     private recycle: Function;
@@ -68,9 +68,10 @@ export default class HoopController extends cc.Component {
             if (this.hoopState === "contacted") {
                 cc.director.emit("hit");
             } else {
-                cc.director.emit("swooshed");
+                cc.director.emit("swish");
             }
             this.animation.play("hoop_zoom_out");
+            this.node.runAction(cc.scaleBy(0.2, 1.2, 1.2));
             this.togglePhysics(false);
             this.scored = true;
         } else if (self.tag === 0) {

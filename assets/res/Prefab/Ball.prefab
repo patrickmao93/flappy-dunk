@@ -165,8 +165,8 @@
       "__id__": 1
     },
     "_enabled": true,
-    "hopSpeed": 700,
-    "gravity": -2000,
+    "hopSpeed": 800,
+    "gravity": -2400,
     "defaultPosition": {
       "__type__": "cc.Vec2",
       "x": -200,
