@@ -1,6 +1,7 @@
 import BallController from "../Ball/BallController";
 import CameraFollowController from "./CameraFollowController";
 import HoopGenerator from "./HoopGenerator";
+import GameModel from "./GameModel";
 
 const { ccclass, property } = cc._decorator;
 
@@ -9,17 +10,23 @@ export default class Game extends cc.Component {
     @property(cc.Prefab)
     BallPrefab: cc.Prefab;
 
+    @property(cc.Node)
+    surface: cc.Node;
+
+    @property(cc.Node)
+    score: cc.Node;
+
     @property(cc.Vec2)
     playerSpawnPosition: cc.Vec2 = cc.v2(-200, 0);
 
     private cameraCtrl: CameraFollowController;
-
     private ball: cc.Node;
     private ballCtrl: BallController;
-
     private hoopGenerator: HoopGenerator;
+    private game: GameModel;
 
     onLoad() {
+        this.game = new GameModel();
         this.initPlayer();
         this.initCameraFollow();
         this.initHoopGenerator();
@@ -31,6 +38,7 @@ export default class Game extends cc.Component {
         this.ballCtrl = this.ball.getComponent("BallController");
         this.node.addChild(this.ball);
         this.ballCtrl.init(this.playerSpawnPosition);
+        this.game.setPlayerAlive(true);
     }
 
     initCameraFollow() {
@@ -44,17 +52,24 @@ export default class Game extends cc.Component {
     }
 
     initEvents() {
+        // init input events
+        this.surface.on(cc.Node.EventType.TOUCH_START, () => {
+            this.ballCtrl.hop();
+        });
+
         // ball hit hoop and scored
         cc.director.on("hit", () => {
-            console.log("hit");
+            this.game.increaseScore("hit");
+            this.score.getComponent(cc.Label).string = this.game.getScore().toString();
         });
         // ball swooshed hoop
         cc.director.on("swooshed", () => {
-            console.log("swooshed");
+            this.game.increaseScore("swooshed");
+            this.score.getComponent(cc.Label).string = this.game.getScore().toString();
         });
         // ball missed hoop
         cc.director.on("player_died", () => {
-            console.log("player_died");
+            this.game.setPlayerAlive(false);
         });
     }
 }

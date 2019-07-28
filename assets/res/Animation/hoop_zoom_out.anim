@@ -1,0 +1,49 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "hoop_zoom_out",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 0.4166666666666667,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": 1,
+  "curveData": {
+    "props": {
+      "scale": [
+        {
+          "frame": 0,
+          "value": {
+            "__type__": "cc.Vec2",
+            "x": 1.57,
+            "y": 1.56
+          }
+        },
+        {
+          "frame": 0.4166666666666667,
+          "value": {
+            "__type__": "cc.Vec2",
+            "x": 2.21,
+            "y": 2.21
+          }
+        }
+      ],
+      "opacity": [
+        {
+          "frame": 0,
+          "value": 255
+        },
+        {
+          "frame": 0.4166666666666667,
+          "value": 0
+        }
+      ]
+    }
+  },
+  "events": [
+    {
+      "frame": 0.4166666666666667,
+      "func": "onAnimationComplete",
+      "params": []
+    }
+  ]
+}
