@@ -8,15 +8,13 @@ export default class HoopGenerator extends cc.Component {
     HoopPrefab: cc.Prefab = null;
 
     @property
-    distanceBetweenHoops: number = 700;
-
-    @property
-    difficultyFactor: number = 100000;
+    distanceBetweenHoops = 700;
 
     private hoopsContainer: cc.Node = null;
     private hoopsPool: cc.NodePool = null;
     private camera: cc.Node = null;
-    private cooldown: boolean = false;
+    private cooldown = false;
+    private hoopCount = 0;
 
     onLoad() {
         this.hoopsContainer = this.node.getChildByName("Hoops");
@@ -41,12 +39,13 @@ export default class HoopGenerator extends cc.Component {
 
             const hoop = this.hoopsPool.get();
             const hoopCtrl = hoop.getComponent(HoopController);
-            const difficulty = this.camera.x / this.difficultyFactor;
 
             this.hoopsContainer.addChild(hoop);
-            hoopCtrl.init(this.camera.x + 700, difficulty, () => {
+            hoopCtrl.init(this.camera.x + this.distanceBetweenHoops, this.hoopCount, () => {
                 this.hoopsPool.put(hoop);
             });
+
+            this.hoopCount += 1;
         }
     }
 }

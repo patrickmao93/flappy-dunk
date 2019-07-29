@@ -25,15 +25,15 @@ export default class HoopController extends cc.Component {
         this.animation = this.getComponent(cc.Animation);
     }
 
-    init(x: number, difficulty: number, recycle: Function) {
+    init(x: number, hoopCount: number, recycle: Function) {
         this.recycle = recycle;
-        const hoopPosition = cc.v2(x, 100 - 200 * Math.random());
+        const canvas = this.node.parent.parent;
+        const hoopPosition = cc.v2(x, (canvas.height / 2 - canvas.height * Math.random()) * 0.4);
         this.node.setPosition(hoopPosition);
-        difficulty = difficulty > 0 ? difficulty : 0;
-        this.node.scale =
-            this.hoop.startingScale - difficulty > this.hoop.minScale
-                ? this.hoop.startingScale - difficulty
-                : this.hoop.minScale;
+
+        this.calculateScale(hoopCount);
+        this.calculateAngle(hoopCount);
+
         this.node.opacity = 255;
         this.scored = false;
         this.togglePhysics(true);
@@ -46,6 +46,32 @@ export default class HoopController extends cc.Component {
         }
     }
 
+    calculateScale(hoopCount: number) {
+        // decrease sclae by [scaleDifficultyFactor] every [scaleN] hoops
+        const newScale =
+            this.hoop.startingScale -
+            this.hoop.scaleDifficultyFactor * Math.floor(hoopCount / this.hoop.scaleN);
+        this.node.scale = newScale < this.hoop.minScale ? this.hoop.minScale : newScale;
+    }
+
+    calculateAngle(hoopCount: number) {
+        let angleFactor = 0; // range 0 ~ 1
+        let minAngle = 0;
+        let maxAngle = 0;
+
+        this.node.rotation = 0;
+
+        // first 5 hoops are flat
+        angleFactor = this.hoop.angleDifficultyFactor * Math.floor(hoopCount / this.hoop.angleN);
+        angleFactor = angleFactor > 1 ? 1 : angleFactor;
+        maxAngle = this.hoop.maxAngle * angleFactor;
+        minAngle = this.hoop.minAngle * angleFactor;
+
+        if (Math.random() < angleFactor) {
+            this.node.rotation = maxAngle - (maxAngle - minAngle) * Math.pow(Math.random(), 0.9);
+        }
+    }
+
     onBeginContact() {
         this.hoopState = "contacted";
     }
@@ -54,7 +80,7 @@ export default class HoopController extends cc.Component {
         const otherPreAabb = other.world.preAabb;
 
         // if ball was not entring from above then it doesn't count
-        if (otherPreAabb.yMin < self.world.aabb.yMax) {
+        if (otherPreAabb.yMin <= self.world.aabb.yMin) {
             return;
         }
 
