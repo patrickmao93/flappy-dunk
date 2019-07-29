@@ -15,6 +15,7 @@ export default class HoopController extends cc.Component {
     private camera: cc.Node = null;
     private scored: boolean = false;
     private animation: cc.Animation;
+    private hitCollider: cc.BoxCollider;
 
     onLoad() {
         this.camera = this.node.parent.parent.getChildByName("Main Camera");
@@ -23,6 +24,9 @@ export default class HoopController extends cc.Component {
         cc.director.getCollisionManager().enabled = true;
         this.hoop = this.getComponent(HoopModel);
         this.animation = this.getComponent(cc.Animation);
+        this.hitCollider = this.getComponents(cc.BoxCollider).filter(
+            collider => collider.tag === 1
+        )[0];
     }
 
     init(x: number, hoopCount: number, recycle: Function) {
@@ -34,6 +38,7 @@ export default class HoopController extends cc.Component {
         this.calculateScale(hoopCount);
         this.calculateAngle(hoopCount);
 
+        this.hitCollider.enabled = true;
         this.node.opacity = 255;
         this.scored = false;
         this.togglePhysics(true);
@@ -100,6 +105,7 @@ export default class HoopController extends cc.Component {
                 cc.director.emit("player_died");
             }
         }
+        this.hitCollider.enabled = false;
     }
 
     togglePhysics(state: boolean) {
