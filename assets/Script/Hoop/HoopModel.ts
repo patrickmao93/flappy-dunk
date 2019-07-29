@@ -21,7 +21,7 @@ export default class HoopModel extends cc.Component {
     scaleDifficultyFactor: number = 0.1; // decrease scale by 0.1 every time
 
     @property
-    angleN: number = 4;
+    angleN: number = 4; // increase angle difficulty every N hoops
 
     @property
     angleDifficultyFactor: number = 0.1; // increase angle odds by 0.1 every time

@@ -6,9 +6,6 @@ type HoopState = "contacted" | "missed";
 
 @ccclass
 export default class HoopController extends cc.Component {
-    @property(cc.Prefab)
-    swishEffectPrefab: cc.Prefab;
-
     private hoop: HoopModel = null;
     private hoopState: HoopState;
     private recycle: Function;
@@ -16,6 +13,7 @@ export default class HoopController extends cc.Component {
     private scored: boolean = false;
     private animation: cc.Animation;
     private hitCollider: cc.BoxCollider;
+    private swishAnimation: cc.Animation;
 
     onLoad() {
         this.camera = this.node.parent.parent.getChildByName("Main Camera");
@@ -27,6 +25,7 @@ export default class HoopController extends cc.Component {
         this.hitCollider = this.getComponents(cc.BoxCollider).filter(
             collider => collider.tag === 1
         )[0];
+        this.swishAnimation = this.node.getChildByName("SwishEffect").getComponent(cc.Animation);
     }
 
     init(x: number, hoopCount: number, recycle: Function) {
@@ -95,6 +94,7 @@ export default class HoopController extends cc.Component {
                 cc.director.emit("hit");
             } else {
                 cc.director.emit("swish");
+                this.swishAnimation.play("swish_spark");
             }
             this.animation.play("hoop_zoom_out");
             this.node.runAction(cc.scaleBy(0.2, 1.2, 1.2));
