@@ -7,6 +7,10 @@ export default class GameModel {
         this.comboCount += 1;
     }
 
+    getCombo() {
+        return this.comboCount;
+    }
+
     resetCombo() {
         this.comboCount = 1;
     }

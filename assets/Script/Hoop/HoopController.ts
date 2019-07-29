@@ -65,14 +65,13 @@ export default class HoopController extends cc.Component {
 
         this.node.rotation = 0;
 
-        // first 5 hoops are flat
         angleFactor = this.hoop.angleDifficultyFactor * Math.floor(hoopCount / this.hoop.angleN);
         angleFactor = angleFactor > 1 ? 1 : angleFactor;
         maxAngle = this.hoop.maxAngle * angleFactor;
         minAngle = this.hoop.minAngle * angleFactor;
 
         if (Math.random() < angleFactor) {
-            this.node.rotation = maxAngle - (maxAngle - minAngle) * Math.pow(Math.random(), 0.9);
+            this.node.rotation = maxAngle - (maxAngle - minAngle) * Math.random();
         }
     }
 

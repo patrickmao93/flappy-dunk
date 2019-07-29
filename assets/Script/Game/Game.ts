@@ -3,6 +3,7 @@ import CameraFollowController from "./CameraFollowController";
 import HoopGenerator from "./HoopGenerator";
 import GameModel from "./GameModel";
 import AudioController from "../Audio/AudioController";
+import ComboLabelController from "./ComboLabelController";
 
 const { ccclass, property } = cc._decorator;
 
@@ -26,10 +27,12 @@ export default class Game extends cc.Component {
     private hoopGenerator: HoopGenerator;
     private game: GameModel;
     private audioCtrl: AudioController;
+    private comboCtrl: ComboLabelController;
 
     onLoad() {
         this.game = new GameModel();
         this.audioCtrl = this.getComponent(AudioController);
+        this.comboCtrl = this.surface.getChildByName("Combo").getComponent(ComboLabelController);
 
         this.initPlayer();
         this.initCameraFollow();
@@ -66,11 +69,13 @@ export default class Game extends cc.Component {
         cc.director.on("hit", () => {
             this.game.increaseScore("hit");
             // this.audioCtrl.playHit();
+            this.comboCtrl.updateComboText(this.game.getCombo());
             this.score.getComponent(cc.Label).string = this.game.getScore().toString();
         });
         // ball swished hoop
         cc.director.on("swish", () => {
             this.game.increaseScore("swish");
+            this.comboCtrl.updateComboText(this.game.getCombo());
             this.audioCtrl.playSwish();
             this.score.getComponent(cc.Label).string = this.game.getScore().toString();
         });

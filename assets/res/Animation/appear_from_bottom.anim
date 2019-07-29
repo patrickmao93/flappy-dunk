@@ -1,9 +1,47 @@
 {
   "__type__": "cc.AnimationClip",
-  "_name": "",
+  "_name": "appear_from_bottom",
   "_objFlags": 0,
-  "_duration": 0,
+  "_native": "",
+  "_duration": 0.5166666666666667,
   "sample": 60,
-  "curveData": {},
+  "speed": 1,
+  "wrapMode": 1,
+  "curveData": {
+    "props": {
+      "y": [
+        {
+          "frame": 0,
+          "value": 243,
+          "curve": [
+            0.3,
+            0.3,
+            0.3212121212121213,
+            1.1247835497835497
+          ]
+        },
+        {
+          "frame": 0.5166666666666667,
+          "value": 285
+        }
+      ],
+      "opacity": [
+        {
+          "frame": 0,
+          "value": 0,
+          "curve": [
+            0.144025974025974,
+            0.46266233766233766,
+            0.58,
+            1
+          ]
+        },
+        {
+          "frame": 0.5166666666666667,
+          "value": 200
+        }
+      ]
+    }
+  },
   "events": []
 }

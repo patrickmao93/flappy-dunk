@@ -9,10 +9,10 @@ export default class HoopModel extends cc.Component {
     minScale: number = 1.15;
 
     @property
-    minAngle: number = -70;
+    minAngle: number = -40;
 
     @property
-    maxAngle: number = 15;
+    maxAngle: number = 20;
 
     @property
     scaleN: number = 12; // increase scale difficulty every N hoops
