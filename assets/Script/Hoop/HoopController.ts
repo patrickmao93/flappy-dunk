@@ -10,23 +10,18 @@ export default class HoopController extends cc.Component {
     swishEffectPrefab: cc.Prefab;
 
     private hoop: HoopModel = null;
+    private hoopState: HoopState;
     private recycle: Function;
     private camera: cc.Node = null;
-
-    private hoopState: HoopState;
     private scored: boolean = false;
-
     private animation: cc.Animation;
 
     onLoad() {
         this.camera = this.node.parent.parent.getChildByName("Main Camera");
         const physicsManager = cc.director.getPhysicsManager();
         physicsManager.enabled = true;
-
         cc.director.getCollisionManager().enabled = true;
-
         this.hoop = this.getComponent(HoopModel);
-
         this.animation = this.getComponent(cc.Animation);
     }
 

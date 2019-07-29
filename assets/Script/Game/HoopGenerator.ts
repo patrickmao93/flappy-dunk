@@ -7,20 +7,19 @@ export default class HoopGenerator extends cc.Component {
     @property(cc.Prefab)
     HoopPrefab: cc.Prefab = null;
 
-    @property(cc.Node)
-    hoopsContainer: cc.Node = null;
-
     @property
     distanceBetweenHoops: number = 700;
 
     @property
     difficultyFactor: number = 100000;
 
+    private hoopsContainer: cc.Node = null;
     private hoopsPool: cc.NodePool = null;
     private camera: cc.Node = null;
     private cooldown: boolean = false;
 
     onLoad() {
+        this.hoopsContainer = this.node.getChildByName("Hoops");
         this.camera = this.node.getChildByName("Main Camera");
         this.hoopsPool = new cc.NodePool();
         for (let i = 0; i < 3; i++) {
