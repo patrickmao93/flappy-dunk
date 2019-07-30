@@ -13,10 +13,10 @@ export default class Game extends cc.Component {
     BallPrefab: cc.Prefab;
 
     @property(cc.Node)
-    surface: cc.Node;
+    score: cc.Node;
 
     @property(cc.Node)
-    score: cc.Node;
+    cover: cc.Node;
 
     @property(cc.Vec2)
     playerSpawnPosition: cc.Vec2 = cc.v2(-200, 0);
@@ -24,6 +24,7 @@ export default class Game extends cc.Component {
     private cameraCtrl: CameraFollowController;
     private ball: cc.Node;
     private ballCtrl: BallController;
+    private surface: cc.Node;
     private hoopGenerator: HoopGenerator;
     private game: GameModel;
     private audioCtrl: AudioController;
@@ -31,8 +32,12 @@ export default class Game extends cc.Component {
 
     onLoad() {
         this.game = new GameModel();
+        this.surface = this.node.getChildByName("Surface");
+        this.score = this.surface.getChildByName("Score");
         this.audioCtrl = this.getComponent(AudioController);
         this.comboCtrl = this.surface.getChildByName("Combo").getComponent(ComboLabelController);
+        cc.director.pause();
+        cc.debug.setDisplayStats(false);
 
         this.initPlayer();
         this.initCameraFollow();
@@ -59,12 +64,7 @@ export default class Game extends cc.Component {
     }
 
     initEvents() {
-        // init input events
-        this.surface.on(cc.Node.EventType.TOUCH_START, () => {
-            this.ballCtrl.hop();
-            this.audioCtrl.playHop();
-        });
-
+        this.registerInputEvents();
         // ball hit hoop and scored
         cc.director.on("hit", () => {
             this.game.increaseScore("hit");
@@ -82,6 +82,19 @@ export default class Game extends cc.Component {
         // ball missed hoop
         cc.director.on("player_died", () => {
             this.game.setPlayerAlive(false);
+        });
+    }
+
+    registerInputEvents() {
+        // init input events
+        this.surface.on(cc.Node.EventType.TOUCH_START, () => {
+            this.ballCtrl.hop();
+            this.audioCtrl.playHop();
+            cc.director.resume();
+        });
+
+        this.cover.on(cc.Node.EventType.TOUCH_START, () => {
+            this.cover.active = false;
         });
     }
 }

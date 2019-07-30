@@ -27,6 +27,14 @@
       false,
       false,
       false
+    ],
+    [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
     ]
   ],
   "design-resolution-height": 640,
@@ -49,7 +57,8 @@
     "Hoop",
     "Wall",
     "Default",
-    "HoopFront"
+    "HoopFront",
+    "Cover"
   ],
   "last-module-event-record-time": 0,
   "simulator-orientation": false,
@@ -58,6 +67,5 @@
     "width": 960
   },
   "use-customize-simulator": true,
-  "use-project-simulator-setting": false,
-  "start-scene": "current"
+  "use-project-simulator-setting": false
 }
