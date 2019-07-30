@@ -47,13 +47,13 @@ export default class HoopGenerator extends cc.Component {
             const hoopCtrl = hoop.getComponent(HoopController);
 
             this.hoopsContainer.addChild(hoop);
-            hoopCtrl.init(
-                this.camera.x + this.distanceBetweenHoops,
-                this.game.getHoopCount(),
-                () => {
+            hoopCtrl.init("static", {
+                x: this.camera.x + this.distanceBetweenHoops,
+                hoopCount: this.game.getHoopCount(),
+                recycle: () => {
                     this.hoopsPool.put(hoop);
                 }
-            );
+            });
 
             this.game.incHoopCount();
         }

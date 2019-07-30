@@ -3,19 +3,28 @@ import HoopModel from "./HoopModel";
 const { ccclass, property } = cc._decorator;
 
 type HoopState = "contacted" | "missed";
+type HoopType = "static" | "slider";
+
+interface HoopOptions {
+    x: number;
+    hoopCount: number;
+    recycle: () => void;
+}
 
 @ccclass
 export default class HoopController extends cc.Component {
     protected hoop: HoopModel = null;
     private hoopState: HoopState;
     private recycle: Function;
-    private camera: cc.Node = null;
+    private camera: cc.Node;
     private animation: cc.Animation;
     private hitCollider: cc.BoxCollider;
     private swishAnimation: cc.Animation;
+    private canvas: cc.Node;
 
     onLoad() {
         this.camera = this.node.parent.parent.getChildByName("Main Camera");
+        this.canvas = this.node.parent.parent;
         const physicsManager = cc.director.getPhysicsManager();
         physicsManager.enabled = true;
         cc.director.getCollisionManager().enabled = true;
@@ -27,19 +36,25 @@ export default class HoopController extends cc.Component {
         this.swishAnimation = this.node.getChildByName("SwishEffect").getComponent(cc.Animation);
     }
 
-    init(x: number, hoopCount: number, recycle: Function) {
-        this.recycle = recycle;
-        const canvas = this.node.parent.parent;
-        const hoopPosition = cc.v2(x, (canvas.height / 2 - canvas.height * Math.random()) * 0.4);
+    init(type: HoopType, options: HoopOptions) {
+        this.recycle = options.recycle;
+        const hoopPosition = cc.v2(
+            options.x,
+            (this.canvas.height / 2 - this.canvas.height * Math.random()) * 0.4
+        );
         this.node.setPosition(hoopPosition);
 
-        this.calculateScale(hoopCount);
-        this.calculateAngle(hoopCount);
+        this.calculateScale(options.hoopCount);
+        this.calculateAngle(options.hoopCount);
 
         this.hitCollider.enabled = true;
         this.node.opacity = 255;
         this.togglePhysics(true);
         this.hoopState = null;
+    }
+
+    initSliderHoop() {
+        // TODO
     }
 
     update() {
