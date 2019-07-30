@@ -1,4 +1,5 @@
 import HoopController from "../Hoop/HoopController";
+import GameModel from "./GameModel";
 
 const { ccclass, property } = cc._decorator;
 
@@ -10,6 +11,7 @@ export default class HoopGenerator extends cc.Component {
     @property
     distanceBetweenHoops = 700;
 
+    private game: GameModel = null;
     private hoopsContainer: cc.Node = null;
     private hoopsPool: cc.NodePool = null;
     private camera: cc.Node = null;
@@ -26,9 +28,14 @@ export default class HoopGenerator extends cc.Component {
         }
     }
 
-    init(ball: cc.Node) {}
+    init(game: GameModel) {
+        this.game = game;
+    }
 
-    update(dt: number) {
+    update() {
+        if (this.game && this.game.isPaused()) {
+            return;
+        }
         const self = this;
         // generate a hoop
         if (this.camera.x % this.distanceBetweenHoops < 5 && !this.cooldown) {

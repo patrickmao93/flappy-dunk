@@ -58,8 +58,8 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": -188,
-      "y": -26,
+      "x": 0,
+      "y": 0,
       "z": 0
     },
     "_scale": {
@@ -68,14 +68,14 @@
       "y": 1,
       "z": 1
     },
-    "_rotationX": 180,
-    "_rotationY": 180,
+    "_rotationX": 0,
+    "_rotationY": 0,
     "_quat": {
       "__type__": "cc.Quat",
       "x": 0,
       "y": 0,
-      "z": -1,
-      "w": 6.123233995736766e-17
+      "z": 0,
+      "w": 1
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -91,7 +91,7 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "c6600e22-3826-4d67-af81-047821c10909"
+      "__uuid__": "fc8a74d9-2ce9-4ad2-aaca-ebb91ac497e2"
     },
     "_type": 0,
     "_sizeMode": 0,
@@ -121,7 +121,7 @@
     "_type": 2,
     "_allowSleep": true,
     "_gravityScale": 1,
-    "_linearDamping": 0.2,
+    "_linearDamping": 0,
     "_angularDamping": 0.1,
     "_linearVelocity": {
       "__type__": "cc.Vec2",
@@ -167,13 +167,32 @@
     "_enabled": true,
     "hopSpeed": 800,
     "gravity": -2400,
-    "defaultPosition": {
-      "__type__": "cc.Vec2",
-      "x": -200,
-      "y": 0
-    },
     "defaultAccel": 1000,
     "speed": 280,
+    "defaultSprite": {
+      "__uuid__": "fc8a74d9-2ce9-4ad2-aaca-ebb91ac497e2"
+    },
+    "smilyFaceSprite": {
+      "__uuid__": "fc8a74d9-2ce9-4ad2-aaca-ebb91ac497e2"
+    },
+    "cryFaceSprite": {
+      "__uuid__": "4f4a3ba7-1e2c-4dae-bfbb-8df5c79e9c17"
+    },
+    "dizzyFaceSprite": {
+      "__uuid__": "fdfa12de-42f0-41c2-8dc6-fc61e1fc36d3"
+    },
+    "roflFaceSprite": {
+      "__uuid__": "9aabf1b9-61d4-4482-ab36-3f3240cb2739"
+    },
+    "squintingFaceSprite": {
+      "__uuid__": "b2b4a749-d26e-4192-8006-148f76dfa712"
+    },
+    "starFaceSprite": {
+      "__uuid__": "5ccb1185-ad8f-4b6f-88e9-05e4891988a7"
+    },
+    "partyFaceSprite": {
+      "__uuid__": "3dbfa3b9-c715-48cb-80d7-0c02aa02dacc"
+    },
     "_id": ""
   },
   {

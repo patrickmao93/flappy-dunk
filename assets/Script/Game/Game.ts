@@ -4,6 +4,7 @@ import HoopGenerator from "./HoopGenerator";
 import GameModel from "./GameModel";
 import AudioController from "../Audio/AudioController";
 import ComboLabelController from "./ComboLabelController";
+import CoverController from "../Surface/CoverController";
 
 const { ccclass, property } = cc._decorator;
 
@@ -29,15 +30,20 @@ export default class Game extends cc.Component {
     private game: GameModel;
     private audioCtrl: AudioController;
     private comboCtrl: ComboLabelController;
+    private coverCtrl: CoverController;
+    private inputCatcher: cc.Node;
 
     onLoad() {
         this.game = new GameModel();
         this.surface = this.node.getChildByName("Surface");
+        this.coverCtrl = this.cover.getComponent(CoverController);
+        this.inputCatcher = this.surface.getChildByName("InputCatcher");
         this.score = this.surface.getChildByName("Score");
         this.audioCtrl = this.getComponent(AudioController);
         this.comboCtrl = this.surface.getChildByName("Combo").getComponent(ComboLabelController);
-        cc.director.pause();
+        this.game.pause();
         cc.debug.setDisplayStats(false);
+        this.inputCatcher.active = true;
 
         this.initPlayer();
         this.initCameraFollow();
@@ -49,7 +55,7 @@ export default class Game extends cc.Component {
         this.ball = cc.instantiate(this.BallPrefab);
         this.ballCtrl = this.ball.getComponent("BallController");
         this.node.addChild(this.ball);
-        this.ballCtrl.init(this.playerSpawnPosition);
+        this.ballCtrl.init(this.game);
         this.game.setPlayerAlive(true);
     }
 
@@ -60,41 +66,59 @@ export default class Game extends cc.Component {
 
     initHoopGenerator() {
         this.hoopGenerator = this.getComponent(HoopGenerator);
-        this.hoopGenerator.init(this.ball);
+        this.hoopGenerator.init(this.game);
     }
 
     initEvents() {
         this.registerInputEvents();
         // ball hit hoop and scored
-        cc.director.on("hit", () => {
-            this.game.increaseScore("hit");
-            // this.audioCtrl.playHit();
-            this.comboCtrl.updateComboText(this.game.getCombo());
-            this.score.getComponent(cc.Label).string = this.game.getScore().toString();
-        });
+        cc.director.on(
+            "hit",
+            () => {
+                this.game.increaseScore("hit");
+                // this.audioCtrl.playHit();
+                this.comboCtrl.updateComboText(this.game.getCombo());
+                this.score.getComponent(cc.Label).string = this.game.getScore().toString();
+            },
+            this
+        );
         // ball swished hoop
-        cc.director.on("swish", () => {
-            this.game.increaseScore("swish");
-            this.comboCtrl.updateComboText(this.game.getCombo());
-            this.audioCtrl.playSwish();
-            this.score.getComponent(cc.Label).string = this.game.getScore().toString();
-        });
+        cc.director.on(
+            "swish",
+            () => {
+                this.game.increaseScore("swish");
+                this.comboCtrl.updateComboText(this.game.getCombo());
+                this.audioCtrl.playSwish();
+                this.score.getComponent(cc.Label).string = this.game.getScore().toString();
+            },
+            this
+        );
         // ball missed hoop
-        cc.director.on("player_died", () => {
-            this.game.setPlayerAlive(false);
-        });
+        cc.director.on(
+            "game_over",
+            () => {
+                this.inputCatcher.active = false;
+                this.game.gameOver();
+                setTimeout(() => {
+                    this.coverCtrl.gameOver(this.game.getScore());
+                }, 2000);
+            },
+            this
+        );
     }
 
     registerInputEvents() {
         // init input events
-        this.surface.on(cc.Node.EventType.TOUCH_START, () => {
+        this.inputCatcher.on(cc.Node.EventType.TOUCH_START, () => {
             this.ballCtrl.hop();
             this.audioCtrl.playHop();
-            cc.director.resume();
+            this.game.resume();
         });
 
         this.cover.on(cc.Node.EventType.TOUCH_START, () => {
+            if (this.game.getIsGameOver()) return;
             this.cover.active = false;
+            cc.director.emit("game_start");
         });
     }
 }

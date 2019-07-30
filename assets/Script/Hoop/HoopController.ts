@@ -77,6 +77,7 @@ export default class HoopController extends cc.Component {
 
     onBeginContact() {
         this.hoopState = "contacted";
+        cc.director.emit("contact");
     }
 
     onCollisionEnter(other: cc.Collider & { world: any }, self: cc.Collider & { world: any }) {
@@ -100,9 +101,7 @@ export default class HoopController extends cc.Component {
             this.togglePhysics(false);
             this.scored = true;
         } else if (self.tag === 0) {
-            if (!this.scored) {
-                cc.director.emit("player_died");
-            }
+            cc.director.emit("game_over");
         }
         this.hitCollider.enabled = false;
     }

@@ -1,4 +1,5 @@
 import BackgroundController from "../Background/BackgroundController";
+import GameModel from "./GameModel";
 
 const { ccclass, property } = cc._decorator;
 
@@ -10,12 +11,12 @@ export default class ScrollController extends cc.Component {
     @property(cc.Node)
     bgContainer: cc.Node;
 
+    private game: GameModel = null;
     private camera: cc.Node = null;
-
-    private bg1: cc.Node;
-    private bg1Ctrl: BackgroundController;
-    private bg2: cc.Node;
-    private bg2Ctrl: BackgroundController;
+    private bg1: cc.Node = null;
+    private bg1Ctrl: BackgroundController = null;
+    private bg2: cc.Node = null;
+    private bg2Ctrl: BackgroundController = null;
 
     onLoad() {
         this.camera = this.node.getChildByName("Main Camera");
@@ -27,20 +28,25 @@ export default class ScrollController extends cc.Component {
         this.bg2Ctrl = this.bg2.getComponent("BackgroundController");
 
         this.bgContainer.addChild(this.bg1);
-        this.bg1Ctrl.init(0, 12);
+        this.bg1Ctrl.init(0);
 
         this.bgContainer.addChild(this.bg2);
-        this.bg2Ctrl.init(this.node.width, -50);
+        this.bg2Ctrl.init(this.node.width);
     }
 
-    init() {}
+    init(game: GameModel) {
+        this.game = game;
+    }
 
-    update(dt: number) {
+    update() {
+        if (this.game && this.game.isPaused()) {
+            return;
+        }
         if (this.bg1.x < this.camera.x - this.node.width) {
-            this.bg1Ctrl.init(this.camera.x + this.node.width, 50 - 100 * Math.random());
+            this.bg1Ctrl.init(this.camera.x + this.node.width);
         }
         if (this.bg2.x < this.camera.x - this.node.width) {
-            this.bg2Ctrl.init(this.camera.x + this.node.width, 50 - 100 * Math.random());
+            this.bg2Ctrl.init(this.camera.x + this.node.width);
         }
     }
 }

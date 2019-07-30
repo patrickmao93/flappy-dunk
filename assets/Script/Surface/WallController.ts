@@ -7,6 +7,6 @@ export default class WallController extends cc.Component {
     }
 
     onBeginContact() {
-        cc.director.emit("player_died");
+        cc.director.emit("game_over");
     }
 }
