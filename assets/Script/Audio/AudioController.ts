@@ -2,19 +2,19 @@ const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class AudioController extends cc.Component {
-    @property(cc.AudioClip)
+    @property({ type: cc.AudioClip })
     hop: cc.AudioClip = null;
 
-    @property(cc.AudioClip)
+    @property({ type: cc.AudioClip })
     bounce: cc.AudioClip = null;
 
-    @property(cc.AudioClip)
+    @property({ type: cc.AudioClip })
     swish: cc.AudioClip = null;
 
-    @property(cc.AudioClip)
+    @property({ type: cc.AudioClip })
     whistle: cc.AudioClip = null;
 
-    @property(cc.AudioClip)
+    @property({ type: cc.AudioClip })
     buzzer: cc.AudioClip = null;
 
     play(name: string) {

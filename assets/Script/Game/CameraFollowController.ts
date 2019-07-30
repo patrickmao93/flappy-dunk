@@ -3,21 +3,21 @@ const { ccclass, property } = cc._decorator;
 @ccclass
 export default class CameraFollowController extends cc.Component {
     @property(cc.Node)
-    camera: cc.Node;
+    camera: cc.Node = null;
 
     @property(cc.Node)
-    camera2: cc.Node;
+    camera2: cc.Node = null;
 
     @property(cc.Node)
-    camera3: cc.Node;
+    camera3: cc.Node = null;
 
     @property(cc.Node)
-    surface: cc.Node;
+    surface: cc.Node = null;
 
     @property
     offsetX: number = 200;
 
-    private ball: cc.Node;
+    private ball: cc.Node = null;
 
     init(ball: cc.Node) {
         this.ball = ball;

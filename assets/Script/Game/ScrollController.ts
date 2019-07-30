@@ -6,10 +6,10 @@ const { ccclass, property } = cc._decorator;
 @ccclass
 export default class ScrollController extends cc.Component {
     @property(cc.Prefab)
-    BackgroundPrefab: cc.Prefab;
+    BackgroundPrefab: cc.Prefab = null;
 
     @property(cc.Node)
-    bgContainer: cc.Node;
+    bgContainer: cc.Node = null;
 
     private game: GameModel = null;
     private camera: cc.Node = null;

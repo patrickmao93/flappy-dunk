@@ -1,5 +1,4 @@
 import HoopModel from "./HoopModel";
-import GameModel from "../Game/GameModel";
 
 const { ccclass, property } = cc._decorator;
 
@@ -7,12 +6,10 @@ type HoopState = "contacted" | "missed";
 
 @ccclass
 export default class HoopController extends cc.Component {
-    private game: GameModel = null;
     private hoop: HoopModel = null;
     private hoopState: HoopState;
     private recycle: Function;
     private camera: cc.Node = null;
-    private scored: boolean = false;
     private animation: cc.Animation;
     private hitCollider: cc.BoxCollider;
     private swishAnimation: cc.Animation;
@@ -30,8 +27,7 @@ export default class HoopController extends cc.Component {
         this.swishAnimation = this.node.getChildByName("SwishEffect").getComponent(cc.Animation);
     }
 
-    init(x: number, hoopCount: number, game: GameModel, recycle: Function) {
-        this.game = game;
+    init(x: number, hoopCount: number, recycle: Function) {
         this.recycle = recycle;
         const canvas = this.node.parent.parent;
         const hoopPosition = cc.v2(x, (canvas.height / 2 - canvas.height * Math.random()) * 0.4);
@@ -42,7 +38,6 @@ export default class HoopController extends cc.Component {
 
         this.hitCollider.enabled = true;
         this.node.opacity = 255;
-        this.scored = false;
         this.togglePhysics(true);
         this.hoopState = null;
     }
@@ -50,31 +45,6 @@ export default class HoopController extends cc.Component {
     update() {
         if (this.node.x < this.camera.x - this.camera.width) {
             this.recycle();
-        }
-    }
-
-    calculateScale(hoopCount: number) {
-        // decrease sclae by [scaleDifficultyFactor] every [scaleN] hoops
-        const newScale =
-            this.hoop.startingScale -
-            this.hoop.scaleDifficultyFactor * Math.floor(hoopCount / this.hoop.scaleN);
-        this.node.scale = newScale < this.hoop.minScale ? this.hoop.minScale : newScale;
-    }
-
-    calculateAngle(hoopCount: number) {
-        let angleFactor = 0; // range 0 ~ 1
-        let minAngle = 0;
-        let maxAngle = 0;
-
-        this.node.rotation = 0;
-
-        angleFactor = this.hoop.angleDifficultyFactor * Math.floor(hoopCount / this.hoop.angleN);
-        angleFactor = angleFactor > 1 ? 1 : angleFactor;
-        maxAngle = this.hoop.maxAngle * angleFactor;
-        minAngle = this.hoop.minAngle * angleFactor;
-
-        if (Math.random() < angleFactor) {
-            this.node.rotation = maxAngle - (maxAngle - minAngle) * Math.random();
         }
     }
 
@@ -102,18 +72,42 @@ export default class HoopController extends cc.Component {
             this.animation.play("hoop_zoom_out");
             this.node.runAction(cc.scaleBy(0.2, 1.2, 1.2));
             this.togglePhysics(false);
-            this.scored = true;
         } else if (self.tag === 0) {
             cc.director.emit("game_over");
         }
         this.hitCollider.enabled = false;
     }
 
-    togglePhysics(state: boolean) {
+    onAnimationComplete() {
+        this.recycle();
+    }
+
+    private togglePhysics(state: boolean) {
         this.getComponent(cc.RigidBody).active = state;
     }
 
-    onAnimationComplete() {
-        this.recycle();
+    private calculateScale(hoopCount: number) {
+        // decrease sclae by [scaleDifficultyFactor] every [scaleN] hoops
+        const newScale =
+            this.hoop.startingScale -
+            this.hoop.scaleDifficultyFactor * Math.floor(hoopCount / this.hoop.scaleN);
+        this.node.scale = newScale < this.hoop.minScale ? this.hoop.minScale : newScale;
+    }
+
+    private calculateAngle(hoopCount: number) {
+        let angleFactor = 0; // range 0 ~ 1
+        let minAngle = 0;
+        let maxAngle = 0;
+
+        this.node.rotation = 0;
+
+        angleFactor = this.hoop.angleDifficultyFactor * Math.floor(hoopCount / this.hoop.angleN);
+        angleFactor = angleFactor > 1 ? 1 : angleFactor;
+        maxAngle = this.hoop.maxAngle * angleFactor;
+        minAngle = this.hoop.minAngle * angleFactor;
+
+        if (Math.random() < angleFactor) {
+            this.node.rotation = maxAngle - (maxAngle - minAngle) * Math.random();
+        }
     }
 }

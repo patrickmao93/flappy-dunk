@@ -11,13 +11,13 @@ const { ccclass, property } = cc._decorator;
 @ccclass
 export default class Game extends cc.Component {
     @property(cc.Prefab)
-    BallPrefab: cc.Prefab;
+    BallPrefab: cc.Prefab = null;
 
     @property(cc.Node)
-    score: cc.Node;
+    score: cc.Node = null;
 
     @property(cc.Node)
-    cover: cc.Node;
+    cover: cc.Node = null;
 
     @property(cc.Vec2)
     playerSpawnPosition: cc.Vec2 = cc.v2(-200, 0);
