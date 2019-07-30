@@ -1,4 +1,5 @@
 import HoopModel from "./HoopModel";
+import GameModel from "../Game/GameModel";
 
 const { ccclass, property } = cc._decorator;
 
@@ -6,6 +7,7 @@ type HoopState = "contacted" | "missed";
 
 @ccclass
 export default class HoopController extends cc.Component {
+    private game: GameModel = null;
     private hoop: HoopModel = null;
     private hoopState: HoopState;
     private recycle: Function;
@@ -28,7 +30,8 @@ export default class HoopController extends cc.Component {
         this.swishAnimation = this.node.getChildByName("SwishEffect").getComponent(cc.Animation);
     }
 
-    init(x: number, hoopCount: number, recycle: Function) {
+    init(x: number, hoopCount: number, game: GameModel, recycle: Function) {
+        this.game = game;
         this.recycle = recycle;
         const canvas = this.node.parent.parent;
         const hoopPosition = cc.v2(x, (canvas.height / 2 - canvas.height * Math.random()) * 0.4);

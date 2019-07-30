@@ -107,9 +107,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 39,
-      "g": 39,
-      "b": 39,
+      "r": 53,
+      "g": 53,
+      "b": 53,
       "a": 255
     },
     "_contentSize": {
@@ -205,7 +205,7 @@
     "_prefab": {
       "__id__": 7
     },
-    "_opacity": 106,
+    "_opacity": 53,
     "_color": {
       "__type__": "cc.Color",
       "r": 0,
@@ -306,7 +306,7 @@
     "_prefab": {
       "__id__": 10
     },
-    "_opacity": 69,
+    "_opacity": 53,
     "_color": {
       "__type__": "cc.Color",
       "r": 0,
@@ -407,7 +407,7 @@
     "_prefab": {
       "__id__": 13
     },
-    "_opacity": 69,
+    "_opacity": 133,
     "_color": {
       "__type__": "cc.Color",
       "r": 0,
@@ -508,7 +508,7 @@
     "_prefab": {
       "__id__": 16
     },
-    "_opacity": 69,
+    "_opacity": 201,
     "_color": {
       "__type__": "cc.Color",
       "r": 0,
