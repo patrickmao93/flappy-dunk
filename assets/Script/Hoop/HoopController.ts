@@ -6,7 +6,7 @@ type HoopState = "contacted" | "missed";
 
 @ccclass
 export default class HoopController extends cc.Component {
-    private hoop: HoopModel = null;
+    protected hoop: HoopModel = null;
     private hoopState: HoopState;
     private recycle: Function;
     private camera: cc.Node = null;

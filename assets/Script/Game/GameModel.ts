@@ -3,9 +3,18 @@ export default class GameModel {
 
     private score: number = 0;
     private comboCount: number = 1;
+    private hoopCount: number = 0;
     private playerAlive: boolean = false;
     private isGameOver: boolean = false;
     private paused: boolean = true;
+
+    incHoopCount() {
+        this.hoopCount += 1;
+    }
+
+    getHoopCount() {
+        return this.hoopCount;
+    }
 
     pause() {
         this.paused = true;

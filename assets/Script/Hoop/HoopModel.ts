@@ -25,4 +25,22 @@ export default class HoopModel extends cc.Component {
 
     @property
     angleDifficultyFactor: number = 0.1; // increase angle odds by 0.1 every time
+
+    @property
+    minSliderLength: number = 20;
+
+    @property
+    maxSliderLength: number = 50;
+
+    @property
+    minSliderSpeed: number = 10;
+
+    @property
+    maxSliderSpeed: number = 20;
+
+    @property
+    sliderN: number = 10;
+
+    @property
+    sliderDifficultyFactor = 0.1;
 }
