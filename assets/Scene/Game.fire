@@ -1746,7 +1746,7 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "groupIndex": 3,
+    "groupIndex": 5,
     "_id": "35ssf5GylERZlitwlGZ3M3"
   },
   {
@@ -1811,7 +1811,7 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "groupIndex": 3,
+    "groupIndex": 5,
     "_id": "1eiogSXMFHfZV3eyJkIQ0G"
   },
   {
@@ -2151,8 +2151,14 @@
     "hop": {
       "__uuid__": "bfca3915-7602-465e-9a7f-25ecf3763540"
     },
+    "bounce": {
+      "__uuid__": "2b6a3b01-7fe2-4825-a536-236aee6f0501"
+    },
     "swish": {
       "__uuid__": "2f71f5aa-0ac1-4297-9e17-1712a43e3ace"
+    },
+    "whistle": {
+      "__uuid__": "a678c6ae-92b0-4afc-aca5-1dc5ecce69f3"
     },
     "_id": "622ufEqgJK55TuDdFcb84K"
   }

@@ -137,6 +137,7 @@ export default class BallController extends cc.Component {
 
     onBeginContact() {
         this.accel = 0;
+        cc.director.emit("bounce");
     }
 
     onEndContact() {

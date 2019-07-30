@@ -82,13 +82,21 @@ export default class Game extends cc.Component {
             },
             this
         );
+        // ball bounce against surface
+        cc.director.on(
+            "bounce",
+            () => {
+                // this.audioCtrl.play("bounce");
+            },
+            this
+        );
         // ball swished hoop
         cc.director.on(
             "swish",
             () => {
                 this.game.increaseScore("swish");
                 this.comboCtrl.updateComboText(this.game.getCombo());
-                this.audioCtrl.playSwish();
+                this.audioCtrl.play("swish");
                 this.score.getComponent(cc.Label).string = this.game.getScore().toString();
             },
             this
@@ -111,7 +119,7 @@ export default class Game extends cc.Component {
         // init input events
         this.inputCatcher.on(cc.Node.EventType.TOUCH_START, () => {
             this.ballCtrl.hop();
-            this.audioCtrl.playHop();
+            this.audioCtrl.play("hop");
             this.game.resume();
         });
 
@@ -119,6 +127,7 @@ export default class Game extends cc.Component {
             if (this.game.getIsGameOver()) return;
             this.cover.active = false;
             cc.director.emit("game_start");
+            this.audioCtrl.play("whistle");
         });
     }
 }
