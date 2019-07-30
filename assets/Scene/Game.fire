@@ -2160,6 +2160,9 @@
     "whistle": {
       "__uuid__": "a678c6ae-92b0-4afc-aca5-1dc5ecce69f3"
     },
+    "buzzer": {
+      "__uuid__": "b4a6ce53-dd3a-4ba6-9a82-1ded834cbc49"
+    },
     "_id": "622ufEqgJK55TuDdFcb84K"
   }
 ]

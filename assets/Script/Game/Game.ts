@@ -105,8 +105,12 @@ export default class Game extends cc.Component {
         cc.director.on(
             "game_over",
             () => {
+                if (this.game.getIsGameOver()) {
+                    return;
+                }
                 this.inputCatcher.active = false;
                 this.game.gameOver();
+                this.audioCtrl.play("buzzer");
                 setTimeout(() => {
                     this.coverCtrl.gameOver(this.game.getScore());
                 }, 2000);
