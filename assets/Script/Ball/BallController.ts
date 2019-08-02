@@ -108,6 +108,16 @@ export default class BallController extends cc.Component {
             },
             this
         );
+        // normal hit
+        cc.director.on(
+            "hit",
+            () => {
+                if (this.game.getCombo() <= 2) {
+                    this.displayEmoji("smilyFaceSprite");
+                }
+            },
+            this
+        );
         // ball swished hoop
         cc.director.on(
             "swish",

@@ -46,7 +46,12 @@ export default class HoopGenerator extends cc.Component {
             const hoop = this.hoopsPool.get();
             const hoopCtrl = hoop.getComponent(HoopController);
 
+            // Hack! Removing this line will cause hoop to show for 1 frame at the beginning
+            if (this.game.getHoopCount() < 1) {
+                hoop.getChildByName("HoopBody").setPosition(1000, 0);
+            }
             this.hoopsContainer.addChild(hoop);
+
             hoopCtrl.init("static", {
                 x: this.camera.x + this.distanceBetweenHoops,
                 hoopCount: this.game.getHoopCount(),
